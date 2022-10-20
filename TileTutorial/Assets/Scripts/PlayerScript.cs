@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D rd2d;
     public Text score;
+    public Text win;
     public float speed;
     private int scoreValue = 0;
 
@@ -16,8 +17,17 @@ public class PlayerScript : MonoBehaviour
     {
         rd2d = GetComponent<Rigidbody2D>();
         score.text = scoreValue.ToString();
+        win.gameObject.SetActive(false);
+        
     }
+    void checkWin()
+    {
+        if (scoreValue == 4)
+           {
+            win.gameObject.SetActive(true);
+           }
 
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -32,6 +42,7 @@ public class PlayerScript : MonoBehaviour
             scoreValue += 1;
             score.text = scoreValue.ToString();
             Destroy(collision.collider.gameObject);
+            checkWin();
         }
 
     }
