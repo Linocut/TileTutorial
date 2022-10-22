@@ -21,11 +21,14 @@ public class PlayerScript : MonoBehaviour
     public float jumpForce;
     private bool facingRight = true;
     private bool stageTwo = false;
+    Animator anim;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rd2d = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         score.text = "Score: " + scoreValue.ToString();
         win.gameObject.SetActive(false);
         lives.text = "Lives: " + livesValue.ToString();
@@ -64,6 +67,7 @@ public class PlayerScript : MonoBehaviour
         transform.localScale = Scaler;
     }
     // Update is called once per frame
+
     void FixedUpdate()
     {
         float hozMovement = Input.GetAxis("Horizontal");
@@ -82,21 +86,27 @@ public class PlayerScript : MonoBehaviour
         }
         if (hozMovement > 0 && facingRight == true)
         {
-            Debug.Log("facing right");
-            
+            anim.SetInteger("State", 1);
+
         }
         if (hozMovement < 0 && facingRight == false)
         {
-            Debug.Log("facing left");
+            
+            anim.SetInteger("State", 1);
         }
         if (vertMovement > 0 && isOnGround == false)
         {
-            Debug.Log("Jumping");
+            anim.SetInteger("State", 2);
         }
         else if (vertMovement > 0 && isOnGround == true)
         {
-            Debug.Log("not Jumping");
+            anim.SetInteger("State", 1);
         }
+        if (hozMovement == 0 && isOnGround == true)
+        {
+            anim.SetInteger("State", 0);
+        }
+        
         checkWin();
         checkLose();
 
