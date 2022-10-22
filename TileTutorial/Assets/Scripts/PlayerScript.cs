@@ -45,8 +45,9 @@ public class PlayerScript : MonoBehaviour
         }
         else if (scoreValue == 4 && stageTwo == false )
         {
-            transform.position = new Vector2(42, 0 );
             livesValue = 3;
+            lives.text = "Lives: " + livesValue.ToString();
+            transform.position = new Vector2(42, 0 );
             stageTwo = true;
         }
 
